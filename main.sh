@@ -63,7 +63,7 @@ rm -rf ./temp
 python3 config_parse.py $config_file $result
 output=(`python3 config_parse.py $config_file $result`)
 
-#echo $output
+echo $output
 mkdir -p $output
 cd $output
 

@@ -35,10 +35,3 @@ We use ',' to separate multiple configurations, and '-' to represent the range
 $ ./main.sh –h
 Use the command '$./main.sh' 
 Follow the prompts on the screen to get a result.xls file in the output path, which is the final result
-
-
-############################
-2023.5.29
-
-already add baseline test up = 0 and uncore freq = 1.4
-in line 260 of config_parse.py

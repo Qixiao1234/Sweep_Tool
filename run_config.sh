@@ -178,7 +178,7 @@ benchmark_speccpufp(){
 
 benchmark_specjbb(){
 	cd $PATH_PTU
-        ./ptu -mon -y -ts -i 1000000 -log -logdir $PATH_LOGDIR -logname $ptu_log -csv &
+        ./ptu -mon -y -ts -i 3000000 -log -logdir $PATH_LOGDIR -logname $ptu_log -csv &
         echo "start specjbb"
         cd $PATH_SPECJBB
         ./run_specjbb.sh

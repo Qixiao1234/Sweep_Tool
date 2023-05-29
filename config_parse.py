@@ -131,6 +131,12 @@ def main(config_path, path):
                 line = [i.strip() for i in line.split(', ')]
                 dict_ai['active_idle'] = line
 
+            elif 'addition' in line:
+                # print(line)
+                case_list = line.split('=')[1]
+                case_list = [i for i in case_list.split('; ')]
+
+
     # print(dict1)
     # print(dict2)
     # print(dict_ai)
@@ -208,6 +214,7 @@ def main(config_path, path):
                             total_time = round(1 * int(item[1]) + total_time, 2)
                             total_memory = round(0.05 * int(item[1]) + total_memory, 2)
                         f.write(ai + ',' + i + ',' + item[1] + '\n')
+    # print('===========')
     # print(dict1)
     if 'enable' in dict_ai['active_idle'] and 'disable' in dict_ai['active_idle']:
         extract(dict1, 'enable')
@@ -256,10 +263,65 @@ def main(config_path, path):
 
     # to modify: to get the baseline test
     # if ***flag == ***:
-    dict3 = dict1
-    dict3['utilization_point'] = [0.0]
-    dict3['uncore_freq(Ghz)'] = [1.4]
-    extract(dict3, 'enable')
+
+
+    def formulate_add(case):
+        case = case.split(', ')
+        uc, up, uf, FC1E, ai, wl = case[0], case[1], case[2], case[3], case[4], case[5]
+        dict_temp = dict1.copy()
+        # print(case[0])
+        if uc:
+            dict_temp['uncore_ceiling(Ghz)'] = [uc.strip()]
+        if up:
+            dict_temp['utilization_point'] = [up]
+        if uf:
+            dict_temp['uncore_freq(Ghz)'] = [uf]
+        if FC1E:
+            dict_temp['FC1E'] = [FC1E]
+        if wl:
+            dict_temp['workload_list'] = [wl.strip()]
+        # print(dict_temp)
+        if ai:
+            extract(dict_temp, ai)
+        else:
+            extract(dict_temp, 'enable')
+
+    if case_list:
+        # print(type(case_list))
+        # print(case_list)
+        for case in case_list:
+            formulate_add(case)
+            # print(case)
+            # print(type(case))
+
+    # ## 000e
+    # dict3 = dict1
+    # dict3['utilization_point'] = [0.0]
+    # dict3['uncore_freq(Ghz)'] = [1.4]
+    # extract(dict3, 'enable')
+    # print('######')
+    # print(dict1)
+    # print(dict3)
+    # ## 040e
+    # dict4 = dict1
+    # dict4['utilization_point'] = [4.0]
+    # dict4['uncore_freq(Ghz)'] = [1.4]
+    # extract(dict4, 'enable')
+    # # 0510
+    # dict5 = dict1
+    # dict5['utilization_point'] = [5.0]
+    # dict5['uncore_freq(Ghz)'] = [1.6]
+    # extract(dict5, 'enable')
+    # # 0512
+    # dict6 = dict1
+    # dict6['utilization_point'] = [5.0]
+    # dict6['uncore_freq(Ghz)'] = [1.8]
+    # extract(dict6, 'enable')
+    # # 0612
+    # dict7 = dict1
+    # dict7['utilization_point'] = [6.0]
+    # dict7['uncore_freq(Ghz)'] = [1.8]
+    # extract(dict7, 'enable')
 
     with open(all_config_path, 'a', encoding='utf-8') as f:
         total_time = str(total_time) + 'hours'
@@ -282,6 +344,5 @@ def main(config_path, path):
         except:
             print(' ')
     return final_output
-
 
 main(sys.argv[1], sys.argv[2])
