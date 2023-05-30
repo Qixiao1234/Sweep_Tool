@@ -35,3 +35,16 @@ We use ',' to separate multiple configurations, and '-' to represent the range
 $ ./main.sh –h
 Use the command '$./main.sh' 
 Follow the prompts on the screen to get a result.xls file in the output path, which is the final result
+
+
+======================================================================================================================================
+2023.5.29
+
+Can add configurations separately
+
+======================================================================================================================================
+2023.5.30
+
+fix config_parse bugs
+
+======================================================================================================================================
