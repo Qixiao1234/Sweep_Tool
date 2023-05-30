@@ -13,7 +13,7 @@ def main(config_path, path):
     # all_config_path = path + '/all_config.csv'
     # dict1 存 ai enable
     # dict2 存 ai disable
-    dict1, dict2, dict_ai, d_i = {}, {}, {}, set()
+    dict1, dict2, dict_ai, d_i, case_list = {}, {}, {}, set(), []
     with open(config_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:
@@ -194,6 +194,7 @@ def main(config_path, path):
     def extract(d, ai):
         global total_time, total_memory
         print_txt = suiji(d, len(d.keys()))
+        print(print_txt)
         with open(all_config_path, 'a', encoding='utf-8') as f:
             for i in print_txt:
                 # print(i)
@@ -281,7 +282,8 @@ def main(config_path, path):
         if FC1E:
             dict_temp['FC1E'] = [FC1E]
         if wl:
-            dict_temp['workload_list'] = [wl.strip()]
+            d_i.add(wl.strip())
+            dict_temp['workload_list'] = [wl.split('_')[0]]
         # print(dict_temp)
         if ai:
             extract(dict_temp, ai)
