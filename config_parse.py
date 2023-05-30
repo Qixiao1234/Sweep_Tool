@@ -17,6 +17,8 @@ def main(config_path, path):
     with open(config_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:
+            if '#' in line:
+                continue
             if 'uncore_ceiling(Ghz)' in line:
                 line = line.split('=')[1].split(', ')
                 tmp = []
